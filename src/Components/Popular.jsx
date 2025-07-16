@@ -1,0 +1,75 @@
+ 
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../utils/axios";
+import Loading from "./Loading";
+import { Link } from "react-router-dom";
+import Topnav from "./partials/topnav";
+import Dropdown from "./partials/Dropdown";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Cards from "./partials/Cards";
+
+const Popular = () => {
+  document.title="Bollyfix || Popular"
+  const navigate = useNavigate();
+  const [category, setcategory] = useState('movie');
+  const [Popular, setPopular] = useState([]);
+  const [page, setpage] = useState(1);
+  const [hasMore, sethasMore] = useState(true);
+
+  const getPopular = async () => {
+    try {
+      const { data } = await axios.get(
+        `/${category}/popular?page=${page}`
+      );
+      if (data.results.length > 0) {
+        setPopular((prevState) => [...prevState, ...data.results]);
+        setpage(page + 1);
+      } else {
+        sethasMore(false);
+      }
+    } catch (err) {
+      console.log('error:', err);
+    }
+  };
+
+  const refershhandler = () => {
+    if (Popular.length === 0) {
+      getPopular();
+    } else {
+      setpage(1);
+      setPopular([]);
+      getPopular();
+    }
+  };
+
+  useEffect(() => {
+    refershhandler();
+  }, [category]);
+
+  return Popular.length > 0 ? (
+    <div className='w-screen h-screen'>
+      <div className='px-[5%] w-full flex items-center justify-between'>
+        
+        <h1 className='text-2xl font-semibold text-zinc-400'>
+          <i onClick={() => navigate(-1)} className="hover:text-[#6556CD] ri-arrow-left-line"></i>{""} Popular
+        </h1>
+        <div className='flex items-center w-[80%]'>
+          <Topnav />
+          <Dropdown title="category" options={["tv", "movie"]} func={(e) => setcategory(e.target.value)} />
+        </div>
+      </div>
+
+      <InfiniteScroll
+        dataLength={Popular.length}
+        next={getPopular}
+        hasMore={hasMore}
+        loader={<h1>Loading...</h1>}
+      >
+        <Cards data={Popular} title={category} />
+      </InfiniteScroll>
+    </div>
+  ) : <Loading />;
+};
+
+export default Popular;
