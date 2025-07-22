@@ -18,13 +18,14 @@ const Cards = ({ data, title }) => {
             >
               <div className="relative">
                 {/* Image */}
-                <img
+               
+                 <img
                   className="w-full h-[40vh] object-cover rounded-md shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
                   src={`https://image.tmdb.org/t/p/original/${
                     c.poster_path || c.backdrop_path || c.profile_path
                   }`}
                   alt=""
-                />
+               />
 
                 {/* ⭐ Rating Badge (inside image) */}
                 {c.vote_average &&(

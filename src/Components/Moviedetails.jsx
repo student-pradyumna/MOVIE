@@ -1,11 +1,13 @@
  import React, { useEffect } from 'react';
 import { asyncloadmovie, removemovie } from '../store/actions/movieActions';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import HorizontalCards from './partials/HorizontalCards';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
 
 const Moviedetails = () => {
+  const{pathname}= useLocation()
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const Moviedetails = () => {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
       }}
-      className="w-screen h-screen px-[10%]"
+      className="relative  w-screen h-[150vh] px-[10%]"
     >
       {/* Part 1 navigation */}
       <nav className="h-[10vh] w-full text-zinc-100 flex items-center gap-10 text-xl">
@@ -45,7 +47,7 @@ const Moviedetails = () => {
       <div className="w-full flex">
 
         <img
-            className="shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] h-[40vh] object-cover"
+            className="shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] h-[50vh] object-cover"
             src={`https://image.tmdb.org/t/p/original/${
               info.detail.poster_path || info.detail.backdrop_path
             }`}
@@ -69,14 +71,18 @@ const Moviedetails = () => {
          <h1 className='text-2xl mt-5 mb-3 '>Overview</h1>
          <p>{info.detail.overview}</p>
          
-        
-
+        <h1 className='text-2xl mt-5 mb-3 '>Movie Translated</h1>
+         <p className='mb-10'>{info.translations.join(', ')}</p>
+           
+           <Link className=' p-5 bg-[#6556CD] rounded-lg' to="trailer"><i className=" text-xl ri-play-fill mr-3"></i>
+           Play Trailer</Link>
 
 
         </div>
       </div>
 
       {/* Part 3 available on paltform*/}
+      
       <div className='w-[80%] flex flex-col gap-y-5 mt-10'>    
 {info.watchproviders && info.watchproviders.flatrate && (
   <div className='flex gap-x-10 items-center text-white'>
@@ -125,7 +131,14 @@ const Moviedetails = () => {
     ))}
   </div>
 )}
-          </div>  
+          </div> 
+        {/* Part 4 Recommendation and similar stuff*/}   
+        <hr className='mt-10 mb-5 border-none h-[2px] bg-zinc-500'/>
+          <h1 className='  text-3xl font-bold text-white'>Recommendations & Similar Stuff</h1>
+         <HorizontalCards data= {info.recommendations.length>0 ? info.recommendations :info.similar } />
+      
+
+      <Outlet/>
         </div>
     
   ) : (
