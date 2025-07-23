@@ -66,6 +66,7 @@ const Trailer = () => {
         ></Link>
           {videoKey ?(
               <iframe
+           controls
           width={1280}
           height={720}
           src={`https://www.youtube.com/embed/${videoKey}`}
