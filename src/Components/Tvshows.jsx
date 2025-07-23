@@ -4,10 +4,15 @@ import { useNavigate } from "react-router-dom";
 import axios from "../utils/axios";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
-import Topnav from "./partials/topnav";
+// ✅ Correct if inside same Components folder
+import Topnav from "./partials/Topnav"; // ✅ Required
+
+
 import Dropdown from "./partials/Dropdown";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Cards from "./partials/Cards";
+
+
 
 const Tvshows = () => {
     document.title = "Bollyfix || Tv shows";
@@ -80,3 +85,4 @@ const Tvshows = () => {
 };
 
 export default Tvshows
+  

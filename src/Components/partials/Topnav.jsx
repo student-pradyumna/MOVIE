@@ -3,6 +3,10 @@ import axios from '../../utils/axios'
 import { Link } from 'react-router-dom'
 import noimage from '/noimage.webp'
 
+
+
+
+
 const Topnav = () => {
   const [query, setquery] = useState("")
   const [searches, setsearches] = useState([])
@@ -61,4 +65,4 @@ const Topnav = () => {
     </div>
   )
 }
-export default Topnav
+export default Topnav;

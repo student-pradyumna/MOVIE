@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import Topnav from './partials/topnav'
+import Topnav from "./partials/Topnav";
 import Dropdown from './partials/Dropdown';
 import axios from "../utils/axios"
 import Loading from './Loading';
