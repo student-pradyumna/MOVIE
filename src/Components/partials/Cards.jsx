@@ -11,7 +11,7 @@ const Cards = ({ data, title }) => {
           const imagePath = c.poster_path || c.backdrop_path || c.profile_path;
           const imageUrl = imagePath
             ? `https://image.tmdb.org/t/p/original/${imagePath}`
-            : '/noimage.webp'; // ✅ image from public folder
+            : '/noimage.webp' // ✅ image from public folder
 
           return (
             <Link
@@ -24,7 +24,8 @@ const Cards = ({ data, title }) => {
                 <img
                   className="w-full h-[40vh] object-cover rounded-md shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
                   src={imageUrl}
-                  alt=""
+                  alt="Fallback"
+
                   loading="lazy"
                 />
 

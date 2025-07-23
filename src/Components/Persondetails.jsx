@@ -25,7 +25,7 @@ const Persondetails = () => {
         dispatch(removeperson());
       };
     }, [id,dispatch])
-  return info ? <div className='px-[10%] w-screen h-[150vh] bg-[#1F1E24]  '>
+  return info ? <div className='px-[10%] w-screen h-[200vh] bg-[#1F1E24] '>
     {/*part 1 navigation */}
      <nav className=" h-[10vh] w-full text-zinc-100 flex items-center gap-10 text-xl">
              <Link onClick={() => navigate(-1)} className="hover:text-[#6556CD] ri-arrow-left-line"></Link>
@@ -46,8 +46,8 @@ const Persondetails = () => {
 {/*social media link*/}
          <div className='text-white text-2xl flex gap-x-5'>
            <a target="_blank" href={`https://www.wikidata.org/wiki/${info.externalid.wikidata_id}`}><i className="ri-earth-fill"></i></a>
-  <a href="https://www.facebook.com/tomcruise"><i className="ri-facebook-circle-fill"></i></a>
-  <a href="https://www.instagram.com/tomcruise"><i className="ri-instagram-fill"></i></a>
+  <a href={ `https://www.facebook.com/${info.externalid.facebook_id}`}><i className="ri-facebook-circle-fill"></i></a>
+   <a href={ `https://www.instagram.com/${info.externalid.instagram_id}`}><i className="ri-instagram-fill"></i></a> 
   <a href="https://x.com/tomcruise"><i className="ri-twitter-x-fill"></i></a>
 </div>
 {/*personal information*/}
@@ -82,7 +82,7 @@ const Persondetails = () => {
        <h1 className=' mt-5 text-xl  font-semibold my-5 text-white'>Acting</h1>
        <Dropdown title="category" options={["tv","movie"]} fun={(e)=>setCategory(e.target.value)}/>
     </div>
-    <div className='w-full h-[50vh] mt-5 overflow-x-hidden overflow-y-auto shadow-xl shadow-[rgba(255,255,255,.3)] border-2 border-zinc-700 p-5'>
+    <div className='w-full h-[60vh] mt-5 overflow-x-hidden overflow-y-auto shadow-xl shadow-[rgba(255,255,255,.3)] border-2 border-zinc-700 p-5'>
       {info[Category+"Credits"].cast.map((c,i)=> <li key={i} className=' text-zinc-400 hover:text-white p-5 rounded hover:bg-[#19191d] duration-300 cursor-pointer'>  
       <Link  to={`/${Category}/details/${c.id}`} className=' '>
        <span className=''>{" "}{c.title || c.original_name || c.original_title}</span>
